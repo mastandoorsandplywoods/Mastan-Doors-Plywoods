@@ -92,7 +92,7 @@ h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:700;letter-spacing:-.02em;ma
 .contact .ghost{border-color:#eceee9;color:#eceee9}
 form{display:grid;gap:14px}
 label{font-weight:600;font-size:.92rem;display:grid;gap:6px}
-input,select,textarea{font:inherit;color:#eceee9;background:#0f1418;border:1px solid #34404a;border-radius:8px;padding:12px 14px;width:100%}
+input,select,textarea{font:inherit;font-weight:400;color:#eceee9;background:#0f1418;border:1px solid #34404a;border-radius:8px;padding:12px 14px;width:100%}
 textarea{min-height:96px;resize:vertical}
 .row{display:flex;gap:12px;flex-wrap:wrap}
 .row .btn{flex:1 1 180px;justify-content:center}
@@ -101,6 +101,45 @@ footer{padding:28px 0 96px;color:var(--muted);font-size:.92rem;border-top:1px so
 .fab{position:fixed;right:0;bottom:0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));z-index:30}
 .fab a{box-shadow:0 12px 28px -8px rgba(0,0,0,.45)}
 @media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:32px}.contact{grid-template-columns:1fr;padding:30px 22px}.visit{grid-template-columns:1fr}nav a.l{display:none}}
+.stage.open .leaf{transform:rotateY(-52deg)}
+.btn{min-height:44px}
+body{overflow-x:clip}
+.card:active{transform:scale(.98)}
+@media (max-width:600px){
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+.wrap{padding:0 16px}
+.bar{height:60px;gap:10px}
+.logo{gap:9px}
+.logo .mark{width:40px;height:40px}
+.logo .nm{font-size:.95rem}
+.logo small{font-size:.62rem;letter-spacing:.16em}
+nav .btn.sm{padding:8px 14px;font-size:.88rem}
+.hero{padding:24px 0 40px;gap:8px}
+.hero h1{font-size:2.15rem}
+.hero p{font-size:1.02rem;margin:14px 0 22px}
+.cta .btn{flex:1 1 100%;justify-content:center}
+.stage{padding:18px 0 8px}
+.frame{width:min(170px,46vw)}
+section{padding:46px 0}
+.lead{margin:10px 0 24px;font-size:1rem}
+.grid{grid-template-columns:1fr 1fr;gap:12px}
+.card{padding:16px 12px 14px;border-radius:14px}
+.art{width:74px;height:74px;margin-bottom:8px}
+.card h3{font-size:1rem}
+.card p{font-size:.84rem;line-height:1.45;margin:6px 0 10px}
+.ask{font-size:.88rem}
+.why{gap:22px}
+.steps li{padding:18px}
+.map,.map iframe{min-height:280px}
+.contact{padding:26px 18px;border-radius:18px;gap:28px}
+.row .btn{flex:1 1 100%}
+.reach a.btn{font-size:.95rem;padding:13px 12px}
+.fab{padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px))}
+.fab .btn{padding:12px 18px}
+footer{padding-bottom:88px}
+.foot{flex-direction:column}
+}
+@media (max-width:360px){.grid{grid-template-columns:1fr}.logo small{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto}}
 </style>
 </head>
@@ -144,7 +183,7 @@ footer{padding:28px 0 96px;color:var(--muted);font-size:.92rem;border-top:1px so
 
 <section id="products"><div class="wrap">
   <h2>Everything for the door, from frame to latch</h2>
-  <p class="lead">Hover over any product to see it up close. Tap Ask for rate and the product name is filled into your WhatsApp message.</p>
+  <p class="lead">Browse the range, then tap Ask for rate. The product name is filled into your WhatsApp message for you.</p>
   <div class="grid">
 
     <article class="card tilt"><svg class="art" viewBox="0 0 120 120" aria-hidden="true"><rect class="w2" x="32" y="8" width="56" height="104" rx="3"/><rect class="w" x="37" y="13" width="46" height="94" rx="2"/><g fill="none" stroke="#5b3318" stroke-width="2"><rect x="43" y="19" width="14" height="38"/><rect x="63" y="19" width="14" height="38"/><rect x="43" y="63" width="14" height="38"/><rect x="63" y="63" width="14" height="38"/></g><circle class="b" cx="78" cy="62" r="4"/></svg><h3>Wooden doors</h3><p>Flush and panel doors in standard sizes for homes, shops and projects.</p><a class="ask" data-p="Wooden doors" href="https://wa.me/919390272849">Ask for rate</a></article>
@@ -250,6 +289,11 @@ footer{padding:28px 0 96px;color:var(--muted);font-size:.92rem;border-top:1px so
     window.location.href="mailto:rasikuleman@gmail.com?subject="+encodeURIComponent("Wholesale enquiry: "+document.getElementById("p").value)+"&body="+encodeURIComponent(msg());
   });
 
+  if(window.matchMedia("(hover:none)").matches){
+    var st=document.getElementById("stage"),h=document.querySelector(".hint");
+    if(h)h.textContent="Tap the door to open it";
+    st.addEventListener("click",function(){st.classList.toggle("open")});
+  }
   var fine=window.matchMedia("(hover:hover) and (pointer:fine)").matches;
   var calm=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
   if(!fine||calm)return;
